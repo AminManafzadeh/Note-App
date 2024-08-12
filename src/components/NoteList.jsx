@@ -1,7 +1,9 @@
 import React from 'react'
 import { FaRegTrashCan } from "react-icons/fa6";
 
+
 function NoteList({ notes, onDelete, onCompleted, sort }) {
+
 
 
     let sortedNotes = notes
