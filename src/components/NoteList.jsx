@@ -1,10 +1,10 @@
 import React from 'react'
 import { FaRegTrashCan } from "react-icons/fa6";
+import { useNotes } from '../context/NotesContext';
 
 
-function NoteList({ notes, onDelete, onCompleted, sort }) {
-
-
+function NoteList({ sort }) {
+    const { notes } = useNotes()
 
     let sortedNotes = notes
     if (sort === "latest") sortedNotes = [...notes].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
@@ -13,7 +13,7 @@ function NoteList({ notes, onDelete, onCompleted, sort }) {
 
     return (
         <div className='overflow-scroll h-[450px]'>
-            {sortedNotes.map(note => <NoteItem key={note.id} note={note} onDelete={onDelete} onCompleted={onCompleted} />)}
+            {sortedNotes.map(note => <NoteItem key={note.id} note={note} />)}
         </div>
     )
 }
@@ -21,7 +21,9 @@ function NoteList({ notes, onDelete, onCompleted, sort }) {
 export default NoteList
 
 
-function NoteItem({ note, onDelete, onCompleted }) {
+function NoteItem({ note }) {
+    const { dispatch } = useNotes()
+    const noteId = Number(note.id)
 
     const options = {
         year: "numeric",
@@ -37,8 +39,8 @@ function NoteItem({ note, onDelete, onCompleted }) {
                     <p className='text-[#94a3b8] mb-2 font-light'>{note.description}</p>
                 </div>
                 <div className='flex items-center gap-x-6'>
-                    <button onClick={() => onDelete(note.id)}><FaRegTrashCan className='text-[#f43f5e] text-xl' /></button>
-                    <input onChange={onCompleted} value={note.id} type="checkbox" className='text-xl' />
+                    <button onClick={() => dispatch({ type: "deleteNote", payload: note.id })}><FaRegTrashCan className='text-[#f43f5e] text-xl' /></button>
+                    <input onChange={() => dispatch({ type: "completedNote", payload: noteId })} value={note.id} type="checkbox" className='text-xl' />
                 </div>
             </div>
             <div className='text-[#cbd5e1]'>

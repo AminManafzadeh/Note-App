@@ -1,7 +1,10 @@
 import React from 'react'
 import Message from './Message'
+import { useNotes } from '../context/NotesContext'
 
-function NoteStatus({ notes }) {
+function NoteStatus() {
+    const { notes } = useNotes()
+
     const allNotes = notes.length
     const completedNotes = notes.filter(n => n.completed).length
     const unCompletedNotes = allNotes - completedNotes

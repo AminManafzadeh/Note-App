@@ -1,7 +1,8 @@
+import { useNotes } from "../context/NotesContext"
 
 
-function NotHeader({ notes, sort, onSort }) {
-
+function NotHeader({ sort, onSort }) {
+    const { notes } = useNotes()
     const allNotes = notes.length
 
     return (
