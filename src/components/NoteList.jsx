@@ -40,7 +40,7 @@ function NoteItem({ note }) {
                 </div>
                 <div className='flex items-center gap-x-6'>
                     <button onClick={() => dispatch({ type: "deleteNote", payload: note.id })}><FaRegTrashCan className='text-[#f43f5e] text-xl' /></button>
-                    <input onChange={() => dispatch({ type: "completedNote", payload: noteId })} value={note.id} type="checkbox" className='text-xl' />
+                    <input onChange={() => dispatch({ type: "completedNote", payload: noteId })} value={note.id} type="checkbox" />
                 </div>
             </div>
             <div className='text-[#cbd5e1]'>
